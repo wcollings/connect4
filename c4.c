@@ -26,7 +26,13 @@ bool checkRightDiag();
 bool checkBoard();
 void print()
 {
-	printf("%d %d %d %d %d %d %d", board[0].r1, board[1].r1, board[2].r1, board[3].r1, board[4].r1, board[5].r1, board[6].r1, board[7].r1);
+	printf("\n\n%d %d %d %d %d %d %d\n", board[0].r1, board[1].r1, board[2].r1, board[3].r1, board[4].r1, board[5].r1, board[6].r1, board[7].r1);
+	printf("%d %d %d %d %d %d %d\n", board[0].r2, board[1].r2, board[2].r2, board[3].r2, board[4].r2, board[5].r2, board[6].r2, board[7].r2);
+	printf("%d %d %d %d %d %d %d\n", board[0].r3, board[1].r3, board[2].r3, board[3].r3, board[4].r3, board[5].r3, board[6].r3, board[7].r3);
+	printf("%d %d %d %d %d %d %d\n", board[0].r4, board[1].r4, board[2].r4, board[3].r4, board[4].r4, board[5].r4, board[6].r4, board[7].r4);
+	printf("%d %d %d %d %d %d %d\n", board[0].r5, board[1].r5, board[2].r5, board[3].r5, board[4].r5, board[5].r5, board[6].r5, board[7].r5);
+	printf("%d %d %d %d %d %d %d\n", board[0].r6, board[1].r6, board[2].r6, board[3].r6, board[4].r6, board[5].r6, board[6].r6, board[7].r6);
+
 }
 
 int main(void)
@@ -44,8 +50,8 @@ int main(void)
 		board[i].player=0;
 		board[i].cpu=0;
 	}
-	//while (!checkBoard())
-	//{
+	while (!checkBoard())
+	{
 		random=rand()%6;
 		printf("give me a row number: ");
 		scanf("%d", &r);
@@ -55,7 +61,7 @@ int main(void)
 		setToken(random, 2);
 		print();
 		checkBoard();
-	//}
+	}
 }
 
 bool checkVertical()
