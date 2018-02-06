@@ -68,7 +68,7 @@ bool checkVertical()
 {
 	for (int i=0; i < 7; ++i)
 	{
-		if (board[i].player >4 || board[i].cpu >4)
+		if (board[i].player >= SCORE || board[i].cpu >= SCORE)
 			return true;
 	}
 	return false;
@@ -81,7 +81,7 @@ bool checkHorizontal()
 	{
 		if (board[j].r1 == 1) player++;
 		else if (board[j].r1 == 2) cpu++;
-		if (player >4 || cpu > 4) return true;
+		if (player >= SCORE || cpu >= SCORE) return true;
 	}
 
 
