@@ -41,11 +41,16 @@ void board::print()
 
 }
 
+/*
+**TODO: optimize this pile of pure shit
+*/
 bool board::checkVertical()
 {
 	int player=0, cpu=0;
 	for (int i=0; i < 7; ++i)
 	{
+
+
 		if (this->matrix[i].r1 == 1)
 		{
 			cpu=0;
@@ -120,7 +125,9 @@ bool board::checkVertical()
 	}
 	return false;
 }
-
+/*
+**TODO: optimize this. it's better, but not great
+*/
 bool board::checkHorizontal()
 {
 	int player=0, cpu=0;
@@ -206,6 +213,9 @@ bool board::checkHorizontal()
 	return false;
 }
 
+/*
+**there's got to be a better way of doing this...
+*/
 bool board::checkLeftDiag()
 {
 	int player=0, cpu=0;
@@ -345,6 +355,9 @@ bool board::checkLeftDiag()
 	return false;
 }
 
+/*
+**I mean seriously
+*/
 bool board::checkRightDiag()
 {
 	int player=0, cpu=0;
