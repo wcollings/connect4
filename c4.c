@@ -79,8 +79,16 @@ bool checkHorizontal()
 	int player=0, cpu=0;
 	for (int j=0; j < 7; ++j)
 	{
-		if (board[j].r1 == 1) player++;
-		else if (board[j].r1 == 2) cpu++;
+		if (board[j].r1 == 1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[j].r1 == 2)
+		{
+			cpu++;
+			player=0;
+		}
 		if (player >= SCORE || cpu >= SCORE) return true;
 	}
 
@@ -88,7 +96,11 @@ bool checkHorizontal()
 	player=cpu=0;
 	for (int j=0; j < 7; ++j)
 	{
-		if (board[j].r2 == 1) player++;
+		if (board[j].r2 == 1)
+		{
+			cpu=0;
+			player++;
+		}
 		else if (board[j].r2 == 2) cpu++;
 		if (player >4 || cpu > 4) return true;
 	}
@@ -97,7 +109,11 @@ bool checkHorizontal()
 	player=cpu=0;
 	for (int j=0; j < 7; ++j)
 	{
-		if (board[j].r3 == 1) player++;
+		if (board[j].r3 == 1)
+		{
+			cpu=0;
+			player++;
+		}
 		else if (board[j].r3 == 2) cpu++;
 		if (player >4 || cpu > 4) return true;
 	}
@@ -106,7 +122,11 @@ bool checkHorizontal()
 	player=cpu=0;
 	for (int j=0; j < 7; ++j)
 	{
-		if (board[j].r4 == 1) player++;
+		if (board[j].r4 == 1)
+		{
+			cpu=0;
+			player++;
+		}
 		else if (board[j].r4 == 2) cpu++;
 		if (player >4 || cpu > 4) return true;
 	}
@@ -115,7 +135,11 @@ bool checkHorizontal()
 	player=cpu=0;
 	for (int j=0; j < 7; ++j)
 	{
-		if (board[j].r5 == 1) player++;
+		if (board[j].r5 == 1)
+		{
+			cpu=0;
+			player++;
+		}
 		else if (board[j].r5 == 2) cpu++;
 		if (player >4 || cpu > 4) return true;
 	}
@@ -124,7 +148,11 @@ bool checkHorizontal()
 	player=cpu=0;
 	for (int j=0; j < 7; ++j)
 	{
-		if (board[j].r6 == 1) player++;
+		if (board[j].r6 == 1)
+		{
+			cpu=0;
+			player++;
+		}
 		else if (board[j].r6 == 2) cpu++;
 		if (player >4 || cpu > 4) return true;
 	}
@@ -137,41 +165,134 @@ bool checkLeftDiag()
 	int player=0, cpu=0;
 	for (int i=0; i < 3;++i)
 	{
-		if (board[i].r6==1) player++;
-		else if (board[i].r6==2) cpu++;
-		if (board[i+1].r5==1) player++;
-		else if (board[i+1].r5==2) cpu++;
-		if (board[i+2].r4==1) player++;
-		else if (board[i+2].r4==2) cpu++;
-		if (board[i+3].r3==1) player++;
-		else if (board[i+3].r3==2) cpu++;
-		if (board[i+4].r2==1) player++;
-		else if (board[i+4].r2==2) cpu++;
-		if (board[i+5].r1==1) player++;
+		if (board[i].r6==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i].r6==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i+1].r5==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i+1].r5==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i+2].r4==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i+2].r4==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i+3].r3==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i+3].r3==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i+4].r2==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i+4].r2==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i+5].r1==1)
+		{
+			cpu=0;
+			player++;
+		}
 		else if (board[i+5].r1==2) cpu++;
 
 		if (player >= SCORE|| cpu >= SCORE ) return true;
 
 		player=cpu=0;
 	}
-	if (board[0].r5==1) player++;
-	else if (board[0].r5==2) cpu++;
+	if (board[0].r5==1)
+	{
+			cpu=0;
+			player++;
+	}
+	else if (board[0].r5==2)
+	{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 
-	if (board[1].r4==1) player++;
-	else if (board[1].r4==2) cpu++;
+	if (board[1].r4==1)
+	{
+			cpu=0;
+			player++;
+		}
+	else if (board[1].r4==2)
+	{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 
-	if (board[2].r3==1) player++;
-	else if (board[2].r3==2) cpu++;
+	if (board[2].r3==1)
+	{
+			cpu=0;
+			player++;
+		}
+	else if (board[2].r3==2)
+	{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 
-	if (board[2].r2==1) player++;
-	else if (board[2].r2==2) cpu++;
+	if (board[2].r2==1)
+	{
+			cpu=0;
+			player++;
+	}
+	else if (board[2].r2==2)
+	{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 
-	if (board[3].r1==1) player++;
-	else if (board[3].r1==2) cpu++;
+	if (board[3].r1==1)
+	{
+			cpu=0;
+			player++;
+		}
+	else if (board[3].r1==2)
+	{
+			cpu++;
+			player=0;
+		}
 
 	if (player >= SCORE|| cpu >= SCORE) return true;
 
@@ -183,43 +304,138 @@ bool checkRightDiag()
 	int player=0, cpu=0;
 	for (int i=6; i > 5;--i)
 	{
-		if (board[i].r6==1) player++;
-		else if (board[i].r6==2) cpu++;
-		if (board[i-1].r5==1) player++;
-		else if (board[i-1].r5==2) cpu++;
-		if (board[i-2].r4==1) player++;
-		else if (board[i-2].r4==2) cpu++;
-		if (board[i-3].r3==1) player++;
-		else if (board[i-3].r3==2) cpu++;
-		if (board[i-4].r2==1) player++;
-		else if (board[i-4].r2==2) cpu++;
-		if (board[i-5].r1==1) player++;
-		else if (board[i-5].r1==2) cpu++;
-
-		if (player >= SCORE || cpu >= SCORE ) return true;
+		if (board[i].r6==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i].r6==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i-1].r5==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i-1].r5==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i-2].r4==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i-2].r4==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i-3].r3==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i-3].r3==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i-4].r2==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i-4].r2==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
+		if (board[i-5].r1==1)
+		{
+			cpu=0;
+			player++;
+		}
+		else if (board[i-5].r1==2)
+		{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 		player=cpu=0;
 	}
-	if (board[6].r5==1) player++;
-	else if (board[6].r5==2) cpu++;
+	if (board[6].r5==1)
+	{
+			cpu=0;
+			player++;
+		}
+	else if (board[6].r5==2)
+	{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 
-	if (board[5].r4==1) player++;
-	else if (board[5].r4==2) cpu++;
+	if (board[5].r4==1)
+	{
+			cpu=0;
+			player++;
+		}
+	else if (board[5].r4==2)
+	{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 
-	if (board[4].r3==1) player++;
-	else if (board[4].r3==2) cpu++;
+	if (board[4].r3==1)
+	{
+			cpu=0;
+			player++;
+		}
+	else if (board[4].r3==2)
+	{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 
-	if (board[3].r2==1) player++;
-	else if (board[3].r2==2) cpu++;
+	if (board[3].r2==1)
+	{
+			cpu=0;
+			player++;
+		}
+	else if (board[3].r2==2)
+	{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 
-	if (board[2].r1==1) player++;
-	else if (board[2].r1==2) cpu++;
-
-	if (player >= SCORE || cpu >= SCORE ) return true;
+	if (board[2].r1==1)
+	{
+			cpu=0;
+			player++;
+		}
+	else if (board[2].r1==2)
+	{
+			cpu++;
+			player=0;
+		}
+		if (player >= SCORE || cpu >= SCORE) return true;
 
 	return false;
 }
