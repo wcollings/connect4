@@ -130,86 +130,77 @@ bool board::checkVertical()
 */
 bool board::checkHorizontal()
 {
-	int player=0, cpu=0;
+	int player[6]={0}, cpu[6]={0};
 	for (int j=0; j < 7; ++j)
 	{
 		if (this->matrix[j].r1 == 1)
 		{
-			cpu=0;
-			player++;
+			cpu[0]==0;
+			player[0]++;
 		}
 		else if (this->matrix[j].r1 == 2)
 		{
-			cpu++;
-			player=0;
+			cpu[0]++;
+			player[0]=0;
 		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-	}
-
-
-	player=cpu=0;
-	for (int j=0; j < 7; ++j)
-	{
-		if (this->matrix[j].r2 == 1)
+		if (this->matrix[j].r2==1)
 		{
-			cpu=0;
-			player++;
+			cpu[1]=0;
+			player[1]++;
 		}
-		else if (this->matrix[j].r2 == 2) cpu++;
-		if (player >4 || cpu > 4) return true;
-	}
-
-
-	player=cpu=0;
-	for (int j=0; j < 7; ++j)
-	{
-		if (this->matrix[j].r3 == 1)
+		else if (this->matrix[j].r2 ==2)
 		{
-			cpu=0;
-			player++;
+			cpu[1]++;
+			player[1]=0;
 		}
-		else if (this->matrix[j].r3 == 2) cpu++;
-		if (player >4 || cpu > 4) return true;
-	}
-
-
-	player=cpu=0;
-	for (int j=0; j < 7; ++j)
-	{
-		if (this->matrix[j].r4 == 1)
+		if (this->matrix[j].r3==1)
 		{
-			cpu=0;
-			player++;
+			cpu[2]=0;
+			player[2]++;
 		}
-		else if (this->matrix[j].r4 == 2) cpu++;
-		if (player >4 || cpu > 4) return true;
-	}
-
-
-	player=cpu=0;
-	for (int j=0; j < 7; ++j)
-	{
-		if (this->matrix[j].r5 == 1)
+		else if (this->matrix[j].r3 ==2)
 		{
-			cpu=0;
-			player++;
+			cpu[2]++;
+			player[2]=0;
 		}
-		else if (this->matrix[j].r5 == 2) cpu++;
-		if (player >4 || cpu > 4) return true;
-	}
-
-	player=cpu=0;
-	for (int j=0; j < 7; ++j)
-	{
-		if (this->matrix[j].r6 == 1)
+		if (this->matrix[j].r4==1)
 		{
-			cpu=0;
-			player++;
+			cpu[3]=0;
+			player[3]++;
 		}
-		else if (this->matrix[j].r6 == 2) cpu++;
-		if (player >4 || cpu > 4) return true;
-	}
+		else if (this->matrix[j].r4 ==2)
+		{
+			cpu[3]++;
+			player[3]=0;
+		}
+		if (this->matrix[j].r5==1)
+		{
+			cpu[1]=0;
+			player[1]++;
+		}
+		else if (this->matrix[j].r5 ==2)
+		{
+			cpu[4]++;
+			player[4]=0;
+		}
+		if (this->matrix[j].r6==1)
+		{
+			cpu[5]=0;
+			player[5]++;
+		}
+		else if (this->matrix[j].r6 ==2)
+		{
+			cpu[5]++;
+			player[5]=0;
+		}
 
+
+		for (int i=0; i < 6; ++i)
+		{
+			if (player[i] >= SCORE || cpu[i] >= SCORE)
+				return true;
+		}
+	}
 	return false;
 }
 

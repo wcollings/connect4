@@ -1,6 +1,6 @@
 flags=-fmessage-length=50 -w -std=c++14
 
-all: connect4.cc row ai
+all: connect4.cpp row ai
 	clang++ connect4.cpp row.cpp ai.cpp $(flags) -o c4
 
 row: row.hpp
