@@ -9,7 +9,7 @@ using namespace std;
 int main(void)
 {
 	board Board;
-	ai machine;
+	ai machine(&Board);
 	srand(time(NULL));
 	int r=0, random=0;
 	Board.print();

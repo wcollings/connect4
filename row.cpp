@@ -519,3 +519,19 @@ void board::setToken(int col, int select)
 
 	return;
 }
+
+int board::lastToken(int col)
+{
+	if (matrix[col].r1 !=0)
+		return matrix[col].r1;
+	else if (matrix[col].r2 !=0)
+		return matrix[col].r2;
+	else if (matrix[col].r3 !=0)
+		return matrix[col].r3;
+	else if (matrix[col].r4 !=0)
+		return matrix[col].r4;
+	else if (matrix[col].r5 !=0)
+		return matrix[col].r5;
+	return matrix[col].r6;
+	
+}

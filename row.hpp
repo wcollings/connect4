@@ -27,6 +27,7 @@ public:
 	bool checkRightDiag();
 	bool checkBoard();
 	void print();
+	int lastToken(int col);
 };
 
 

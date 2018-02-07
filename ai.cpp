@@ -13,6 +13,18 @@ ai::ai()
 	}
 	turns=0;
 }
+
+ai::ai(board* Board)
+{
+	this->Board=Board;
+	srand(10);
+	for (int i=0; i < 4; ++i)
+	{
+		lastPlayerMoves[i]=-1;
+		lastAiMoves[i]=-1;
+	}
+	turns=0;
+}
 /*
 **each weight is random, but the difference classes have different upper or lower limits.
 **that way the machine seems methodical, but not asshole-y.
