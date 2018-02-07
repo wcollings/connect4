@@ -1,1 +1,11 @@
 c4
+ai
+ai.h
+*.o
+*.h.gch
+*.hpp.gch
+*.c
+*.cc
+connect4test.c*
+a.out
+c4.c
