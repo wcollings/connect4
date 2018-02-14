@@ -1,14 +1,16 @@
-flags=-fmessage-length=50 -w -std=c++14
+flags = -fmessage-length=50 -std=c++14 -fpermissive
+DEPS = ai.hpp row.hpp
+OBJ = row.o ai.o connect4.o
+CC=clang++
 
-all: connect4.cpp row ai
-	clang++ connect4.cpp row.cpp ai.cpp $(flags) -o c4
+all: connect4
 
-row: row.hpp
-	clang++ row.hpp $(flags)
+%.o: %.cpp $(DEPS)
+	$(CC) -c -o $@ $< $(flags)
 
-ai:ai.hpp
-	clang++ ai.hpp $(flags)
+connect4: $(OBJ) 
+	$(CC) $^ -I . $(flags) -o $@
 
-cleanup:
+clean:
 	rm *.hpp.gch
 	rm *.o

@@ -1,7 +1,8 @@
+#include "row.hpp"
+
 #ifndef __AI_HPP__
 #define __AI_HPP__
 
-#include "row.hpp"
 
 class ai{
 	private:
@@ -14,6 +15,8 @@ class ai{
 	ai();
 	ai(board*);
 	void logPlayerMove(int column);
+	
+
 };
 
 #endif

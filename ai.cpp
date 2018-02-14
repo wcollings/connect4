@@ -1,8 +1,6 @@
 #include "ai.hpp"
 
 #include <cmath>
-#include <iostream>
-
 ai::ai()
 {
 	srand(10);
@@ -88,4 +86,5 @@ void ai::logPlayerMove(int column)
 		lastPlayerMoves[i]=lastPlayerMoves[i-1];
 	}
 	lastPlayerMoves[0]=column;
+	Board->print();
 }

@@ -1,127 +1,51 @@
 #include "row.hpp"
 #include <iostream>
-using namespace std;
 
 board::board()
 {
-	for (int i=0; i < 7; ++i)
+	for (int i=0; i < X; ++i)
 	{
-		this->matrix[i].r1=0;
-		this->matrix[i].r2=0;
-		this->matrix[i].r3=0;
-		this->matrix[i].r4=0;
-		this->matrix[i].r5=0;
-		this->matrix[i].r6=0;
-		this->matrix[i].player=0;
-		this->matrix[i].cpu=0;
+		for (int j=0; j < Y; ++j)
+			matrix[i][j]=0;
 	}
 }
 
 void board::print()
 {
-	cout <<"\n\n"
-		  <<this->matrix[0].r1 <<' ' <<this->matrix[1].r1 <<' ' <<this->matrix[2].r1 <<' ' <<this->matrix[3].r1
-		  <<' ' <<this->matrix[4].r1 <<' ' <<this->matrix[5].r1 <<' ' <<this->matrix[6].r1
-		  <<'\n'
-		  <<this->matrix[0].r2 <<' ' <<this->matrix[1].r2 <<' ' <<this->matrix[2].r2 <<' ' <<this->matrix[3].r2
-		  <<' ' <<this->matrix[4].r2 <<' ' <<this->matrix[5].r2 <<' ' <<this->matrix[6].r2
-		  <<'\n'
-		  <<this->matrix[0].r3 <<' ' <<this->matrix[1].r3 <<' ' <<this->matrix[2].r3 <<' ' <<this->matrix[3].r3
-		  <<' ' <<this->matrix[4].r3 <<' ' <<this->matrix[5].r3 <<' ' <<this->matrix[6].r3
-		  <<'\n'
-		  <<this->matrix[0].r4 <<' ' <<this->matrix[1].r4 <<' ' <<this->matrix[2].r4 <<' ' <<this->matrix[3].r4
-		  <<' ' <<this->matrix[4].r4 <<' ' <<this->matrix[5].r4 <<' ' <<this->matrix[6].r4
-		  <<'\n'
-		  <<this->matrix[0].r5 <<' ' <<this->matrix[1].r5 <<' ' <<this->matrix[2].r5 <<' ' <<this->matrix[3].r5
-		  <<' ' <<this->matrix[4].r5 <<' ' <<this->matrix[5].r5 <<' ' <<this->matrix[6].r5
-		  <<'\n'
-		  <<this->matrix[0].r6 <<' ' <<this->matrix[1].r6 <<' ' <<this->matrix[2].r6 <<' ' <<this->matrix[3].r6
-		  <<' ' <<this->matrix[4].r6 <<' ' <<this->matrix[5].r6 <<' ' <<this->matrix[6].r6
-		  <<"\n\n";
-
+	for (int i=0; i < X; ++i)
+	{
+		for (int j=0; j < Y; ++j)
+		{
+			std::cout <<matrix[i][j] <<' ';
+		}
+		std::cout <<'\n';
+	}
 }
 
-/*
-**TODO: optimize this pile of pure shit
-*/
 bool board::checkVertical()
 {
-	int player=0, cpu=0;
-	for (int i=0; i < 7; ++i)
+	int player_score=0, cpu_score=0;
+	for (int i=0; i < X; ++i)
 	{
+		for (int j=0; j < Y; ++i)
+		{
+			if (matrix[i][j] == 1)
+			{
+				player_score++;
+				cpu_score=0;
+			}
+			else if (matrix[i][j] == 2)
+			{
+				player_score=0;
+				cpu_score++;
+			}
+			if (player_score > 3)
+				return true;
+			if (cpu_score > 3)
+				return true;
+			cpu_score=player_score=0;
+		}
 
-
-		if (this->matrix[i].r1 == 1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i].r1 == 2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-		if (this->matrix[i].r2 == 1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i].r2 == 2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-		if (this->matrix[i].r3 == 1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i].r3 == 2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-		if (this->matrix[i].r4 == 1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i].r4 == 2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-		if (this->matrix[i].r5 == 1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i].r5 == 2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-		if (this->matrix[i].r6 == 1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i].r6 == 2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
 	}
 	return false;
 }
@@ -130,219 +54,87 @@ bool board::checkVertical()
 */
 bool board::checkHorizontal()
 {
-	int player[6]={0}, cpu[6]={0};
-	for (int j=0; j < 7; ++j)
+	int player_score=0, cpu_score=0;
+	for (int i=0; i < Y; ++i)
 	{
-		if (this->matrix[j].r1 == 1)
+		for (int j=0; j < X; ++i)
 		{
-			cpu[0]==0;
-			player[0]++;
-		}
-		else if (this->matrix[j].r1 == 2)
-		{
-			cpu[0]++;
-			player[0]=0;
-		}
-		if (this->matrix[j].r2==1)
-		{
-			cpu[1]=0;
-			player[1]++;
-		}
-		else if (this->matrix[j].r2 ==2)
-		{
-			cpu[1]++;
-			player[1]=0;
-		}
-		if (this->matrix[j].r3==1)
-		{
-			cpu[2]=0;
-			player[2]++;
-		}
-		else if (this->matrix[j].r3 ==2)
-		{
-			cpu[2]++;
-			player[2]=0;
-		}
-		if (this->matrix[j].r4==1)
-		{
-			cpu[3]=0;
-			player[3]++;
-		}
-		else if (this->matrix[j].r4 ==2)
-		{
-			cpu[3]++;
-			player[3]=0;
-		}
-		if (this->matrix[j].r5==1)
-		{
-			cpu[1]=0;
-			player[1]++;
-		}
-		else if (this->matrix[j].r5 ==2)
-		{
-			cpu[4]++;
-			player[4]=0;
-		}
-		if (this->matrix[j].r6==1)
-		{
-			cpu[5]=0;
-			player[5]++;
-		}
-		else if (this->matrix[j].r6 ==2)
-		{
-			cpu[5]++;
-			player[5]=0;
-		}
-
-
-		for (int i=0; i < 6; ++i)
-		{
-			if (player[i] >= SCORE || cpu[i] >= SCORE)
+			if (matrix[i][j] == 1)
+			{
+				player_score++;
+				cpu_score=0;
+			}
+			else if (matrix[i][j] == 2)
+			{
+				player_score=0;
+				cpu_score++;
+			}
+			if (player_score > 3)
+				return true;
+			if (cpu_score > 3)
 				return true;
 		}
+
+	cpu_score=player_score=0;
 	}
 	return false;
 }
 
 /*
-**there's got to be a better way of doing this...
+**there's got to be a better way of doing this
 */
 bool board::checkLeftDiag()
 {
-	int player=0, cpu=0;
-	for (int i=0; i < 3;++i)
+	int player_score=0, cpu_score=0;
+	for (int i=0, j =0; i < X && j < Y; ++i,++j)
 	{
-		if (this->matrix[i].r6==1)
+		if (matrix[i][j]==1)
 		{
-			cpu=0;
-			player++;
+			player_score++;
+			cpu_score=0;
 		}
-		else if (this->matrix[i].r6==2)
+		else if (matrix[i][j]== 2)
 		{
-			cpu++;
-			player=0;
+			player_score=0;
+			cpu_score++;
 		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i+1].r5==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i+1].r5==2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i+2].r4==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i+2].r4==2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i+3].r3==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i+3].r3==2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i+4].r2==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i+4].r2==2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i+5].r1==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i+5].r1==2) cpu++;
-
-		if (player >= SCORE|| cpu >= SCORE ) return true;
-
-		player=cpu=0;
+		if (player_score > SCORE) return true;
+		if (cpu_score > SCORE) return true;
 	}
-	if (this->matrix[0].r5==1)
+	cpu_score=player_score=0;
+	for (int i=0, j=1; i < X && j < Y; ++i,++j)
 	{
-			cpu=0;
-			player++;
+
+		if (matrix[i][j]==1)
+		{
+			player_score++;
+			cpu_score=0;
+		}
+		else if (matrix[i][j]== 2)
+		{
+			player_score=0;
+			cpu_score++;
+		}
+		if (player_score > SCORE) return true;
+		if (cpu_score > SCORE) return true;
+
 	}
-	else if (this->matrix[0].r5==2)
+	cpu_score=player_score=0;
+	for (int i=1, j=0; i < X && j < Y; ++i,++j)
 	{
-			cpu++;
-			player=0;
+		if (matrix[i][j]==1)
+		{
+			player_score++;
+			cpu_score=0;
 		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-
-	if (this->matrix[1].r4==1)
-	{
-			cpu=0;
-			player++;
+		else if (matrix[i][j]== 2)
+		{
+			player_score=0;
+			cpu_score++;
 		}
-	else if (this->matrix[1].r4==2)
-	{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-
-	if (this->matrix[2].r3==1)
-	{
-			cpu=0;
-			player++;
-		}
-	else if (this->matrix[2].r3==2)
-	{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-
-	if (this->matrix[2].r2==1)
-	{
-			cpu=0;
-			player++;
+		if (player_score > SCORE) return true;
+		if (cpu_score > SCORE) return true;
 	}
-	else if (this->matrix[2].r2==2)
-	{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-
-	if (this->matrix[3].r1==1)
-	{
-			cpu=0;
-			player++;
-		}
-	else if (this->matrix[3].r1==2)
-	{
-			cpu++;
-			player=0;
-		}
-
-	if (player >= SCORE|| cpu >= SCORE) return true;
-
 	return false;
 }
 
@@ -351,187 +143,63 @@ bool board::checkLeftDiag()
 */
 bool board::checkRightDiag()
 {
-	int player=0, cpu=0;
-	for (int i=6; i > 5;--i)
+	int player_score=0, cpu_score=0;
+	for (int i=0, j=Y-1; i < X && Y > 0; ++i, --j)
 	{
-		if (this->matrix[i].r6==1)
+		if (matrix[i][j]==1)
 		{
-			cpu=0;
-			player++;
+			player_score++;
+			cpu_score=0;
 		}
-		else if (this->matrix[i].r6==2)
+		else if (matrix[i][j]==2)
 		{
-			cpu++;
-			player=0;
+			player_score=0;
+			cpu_score++;
 		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i-1].r5==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i-1].r5==2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i-2].r4==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i-2].r4==2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i-3].r3==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i-3].r3==2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i-4].r2==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i-4].r2==2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-		if (this->matrix[i-5].r1==1)
-		{
-			cpu=0;
-			player++;
-		}
-		else if (this->matrix[i-5].r1==2)
-		{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-		player=cpu=0;
+		if (player_score > SCORE) return true;
+		if (cpu_score > SCORE) return true;
 	}
-	if (this->matrix[6].r5==1)
+	player_score=cpu_score=0;
+	for (int i=1, j=Y-1; i < X && j > 0; ++i,--j)
 	{
-			cpu=0;
-			player++;
+		if (matrix[i][j]==1)
+		{
+			player_score++;
+			cpu_score=0;
 		}
-	else if (this->matrix[6].r5==2)
+		else if (matrix[i][j]==2)
+		{
+			player_score=0;
+			cpu_score++;
+		}
+		if (player_score > SCORE) return true;
+		if (cpu_score > SCORE) return true;
+	}
+	player_score=cpu_score=0;
+	for (int i=1, j =Y-1; i < X && j > 0; ++i,--j)
 	{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
 
-
-	if (this->matrix[5].r4==1)
-	{
-			cpu=0;
-			player++;
+		if (matrix[i][j]==1)
+		{
+			player_score++;
+			cpu_score=0;
 		}
-	else if (this->matrix[5].r4==2)
-	{
-			cpu++;
-			player=0;
+		else if (matrix[i][j]==2)
+		{
+			player_score=0;
+			cpu_score++;
 		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-
-	if (this->matrix[4].r3==1)
-	{
-			cpu=0;
-			player++;
-		}
-	else if (this->matrix[4].r3==2)
-	{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-
-	if (this->matrix[3].r2==1)
-	{
-			cpu=0;
-			player++;
-		}
-	else if (this->matrix[3].r2==2)
-	{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
-
-	if (this->matrix[2].r1==1)
-	{
-			cpu=0;
-			player++;
-		}
-	else if (this->matrix[2].r1==2)
-	{
-			cpu++;
-			player=0;
-		}
-		if (player >= SCORE || cpu >= SCORE) return true;
-
+		if (player_score > SCORE) return true;
+		if (cpu_score > SCORE) return true;
+	}
 	return false;
 }
-
-bool board::checkBoard()
-{
-	bool good=false;
-	if (checkVertical() || good) good=true;
-	if (checkHorizontal() || good) good=true;
-	if (checkLeftDiag() || good) good=true;
-	if (checkRightDiag() || good) good=true;
-	return good;
-}
-
-void board::setToken(int col, int select)
-{
-	if (this->matrix[col].r1 != 0)
-	{
-		printf("That line is full\n");
-		return;
-	}
-	else if (this->matrix[col].r6==0) this->matrix[col].r6=select;
-	else if (this->matrix[col].r5==0) this->matrix[col].r5=select;
-	else if (this->matrix[col].r4==0) this->matrix[col].r4=select;
-	else if (this->matrix[col].r3==0) this->matrix[col].r3=select;
-	else if (this->matrix[col].r2==0) this->matrix[col].r2=select;
-	else if (this->matrix[col].r1==0) this->matrix[col].r1=select;
-
-	if (select == 1) this->matrix[col].player++;
-	else this->matrix[col].cpu++;
-
-	return;
-}
-
+/*
+**gets the top token of a given column
+*/
 int board::lastToken(int col)
 {
-	if (matrix[col].r1 !=0)
-		return matrix[col].r1;
-	else if (matrix[col].r2 !=0)
-		return matrix[col].r2;
-	else if (matrix[col].r3 !=0)
-		return matrix[col].r3;
-	else if (matrix[col].r4 !=0)
-		return matrix[col].r4;
-	else if (matrix[col].r5 !=0)
-		return matrix[col].r5;
-	return matrix[col].r6;
-	
+	int i=0;
+	while (matrix[col][++i] == 0 );
+	return matrix[col][i];
 }
