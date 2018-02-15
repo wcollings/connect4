@@ -1,8 +1,6 @@
 #include "ai.hpp"
-
-#include <cmath>
 #include <iostream>
-
+#include <cmath>
 ai::ai()
 {
 	srand(10);
@@ -12,6 +10,20 @@ ai::ai()
 		lastAiMoves[i]=-1;
 	}
 	turns=0;
+	lastAttackPosition=0;
+}
+
+ai::ai(board* Board)
+{
+	this->Board=Board;
+	srand(10);
+	for (int i=0; i < 4; ++i)
+	{
+		lastPlayerMoves[i]=-1;
+		lastAiMoves[i]=-1;
+	}
+	turns=0;
+	lastAttackPosition=0;
 }
 /*
 **each weight is random, but the difference classes have different upper or lower limits.
@@ -20,8 +32,9 @@ ai::ai()
 */
 int ai::place()
 {
+	int choice;
 	int random_move=rand()%6;
-	int guess=0, lastWeight=0;
+	int guess=-1, lastWeight=0;
 	if (turns==0)
 		guess=random_move;
 		//person keeps picking the same column
@@ -31,6 +44,7 @@ int ai::place()
 		{
 			guess=lastPlayerMoves[0];
 			lastWeight=rand()%5;
+			choice=0;
 		}
 	}
 	//doing a sideways or diagonal pattern
@@ -40,6 +54,7 @@ int ai::place()
 		{
 			guess=lastPlayerMoves[0]-1;
 			lastWeight=rand()%5;
+			choice=1;
 		}   
 	}
 	//doing the other sideways/diagonal
@@ -47,13 +62,22 @@ int ai::place()
 	{
 	 if (lastWeight < 3)
 		{
-			guess=lastPlayerMoves[0]+1;
+			guess=lastPlayerMoves[0]-1;
 			lastWeight=rand()%5;
+			choice=2;
 		}   
 	}
 	//play a random move. just to add chaos
 	if (rand()%4 > lastWeight)
-		guess=random_move;
+	{
+		guess=attack();
+		choice=3;
+	}
+	if (guess == -1)
+	{
+		guess=rand()%6;
+		choice=4;
+	}
 	if (guess <0 || guess > 6)
 		guess=3;
 
@@ -63,6 +87,9 @@ int ai::place()
 		lastAiMoves[i]=lastAiMoves[i+1];
 	}
 	lastAiMoves[0]=guess;
+	#if verbose==1
+	std::cout <<"Went with choice " <<choice <<'\n';
+	#endif
 	return guess;
 }
 /*
@@ -77,3 +104,13 @@ void ai::logPlayerMove(int column)
 	}
 	lastPlayerMoves[0]=column;
 }
+
+int ai::attack()
+{
+	if (Board->lastToken(lastAttackPosition) != 2 ||  Board->columnFull(lastAttackPosition))
+		lastAttackPosition++;
+	if (lastAttackPosition >= 6)
+		lastAttackPosition=0;
+	return lastAttackPosition;
+}
+
