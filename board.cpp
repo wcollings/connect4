@@ -1,4 +1,4 @@
-#include "row.hpp"
+#include "board.hpp"
 #include <iostream>
 
 board::board()

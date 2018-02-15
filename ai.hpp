@@ -1,4 +1,4 @@
-#include "row.hpp"
+#include "board.hpp"
 
 #ifndef __AI_HPP__
 #define __AI_HPP__

@@ -1,6 +1,6 @@
 flags = -fmessage-length=50 -std=c++11 -fpermissive
-DEPS = row.hpp ai.hpp
-OBJ = row.o ai.o connect4.o
+DEPS = board.hpp ai.hpp
+OBJ = board.o ai.o connect4.o
 CC=clang++
 
 all: connect4
