@@ -10,11 +10,13 @@ class ai{
 	int turns;
 	int lastPlayerMoves[4];
 	int lastAiMoves[4];
+	int lastAttackPosition;
 	public:
 	int place();
 	ai();
 	ai(board*);
 	void logPlayerMove(int column);
+	int attack();
 };
 
 

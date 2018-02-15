@@ -14,7 +14,7 @@ void board::setToken(int col, int select)
 {
 	int i=0;
 	for (; i < Y && matrix[col][i]==0; i++);
-	std::cout <<"point is ("<<col <<',' <<i-1 <<")\n";
+	//std::cout <<"point is ("<<col <<',' <<i-1 <<")\n";
 	matrix[col][i-1]=select;
 }
 
@@ -24,7 +24,11 @@ void board::print()
 	{
 		for (int j=0; j < X; ++j)
 		{
+			#if verbose==1
+			std::cout <<'(' <<j <<',' <<i <<',' <<matrix[j][i] <<')' <<' ';
+			#else
 			std::cout <<matrix[j][i] <<' ';
+			#endif
 		}
 		std::cout <<'\n';
 	}
@@ -38,7 +42,7 @@ int board::checkVertical()
 	{
 		for (int j=0; j < Y; ++j)
 		{
-			if (matrix[j][i] == 1)
+			if (matrix[i][j] == 1)
 			{
 				player_score++;
 				cpu_score=0;
@@ -52,9 +56,8 @@ int board::checkVertical()
 				return 1;
 			if (cpu_score >= SCORE)
 				return 2;
-			cpu_score=player_score=0;
 		}
-
+		cpu_score=player_score=0;
 	}
 	return 0;
 }
@@ -66,7 +69,7 @@ int board::checkHorizontal()
 	{
 		for (int i=0; i < X; ++i)
 		{
-			if (matrix[j][i] == 1)
+			if (matrix[i][j] == 1)
 			{
 				player_score++;
 				cpu_score=0;
@@ -76,12 +79,12 @@ int board::checkHorizontal()
 				player_score=0;
 				cpu_score++;
 			}
-			if (player_score > 3)
+			if (player_score >= SCORE)
 				return 1;
-			if (cpu_score > 3)
+			if (cpu_score >= SCORE)
 				return 2;
 		}
-
+	cpu_score=cpu_score;
 	cpu_score=player_score=0;
 	}
 	return 0;
@@ -103,8 +106,8 @@ int board::checkLeftDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return 1;
-		if (cpu_score > SCORE) return 2;
+		if (player_score >= SCORE) return 1;
+		if (cpu_score >= SCORE) return 2;
 	}
 	cpu_score=player_score=0;
 	for (int i=0, j=1; i < X && j < Y; ++i,++j)
@@ -120,8 +123,8 @@ int board::checkLeftDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return 1;
-		if (cpu_score > SCORE) return 2;
+		if (player_score >= SCORE) return 1;
+		if (cpu_score >= SCORE) return 2;
 
 	}
 	cpu_score=player_score=0;
@@ -137,8 +140,8 @@ int board::checkLeftDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return 1;
-		if (cpu_score > SCORE) return 2;
+		if (player_score >= SCORE) return 1;
+		if (cpu_score >= SCORE) return 2;
 	}
 	return 0;
 }
@@ -159,8 +162,8 @@ int board::checkRightDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return 1;
-		if (cpu_score > SCORE) return 2;
+		if (player_score >= SCORE) return 1;
+		if (cpu_score >= SCORE) return 2;
 	}
 	player_score=cpu_score=0;
 	for (int i=1, j=Y-1; i < X && j > 0; ++i,--j)
@@ -175,8 +178,8 @@ int board::checkRightDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return 1;
-		if (cpu_score > SCORE) return 2;
+		if (player_score >= SCORE) return 1;
+		if (cpu_score >= SCORE) return 2;
 	}
 	player_score=cpu_score=0;
 	for (int i=1, j =Y-1; i < X && j > 0; ++i,--j)
@@ -192,8 +195,8 @@ int board::checkRightDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return 1;
-		if (cpu_score > SCORE) return 2;
+		if (player_score >= SCORE) return 1;
+		if (cpu_score >= SCORE) return 2;
 	}
 	return 0;
 }
@@ -219,11 +222,14 @@ int board::checkBoard()
 	return 0;
 }
 
-
-
 int board::lastToken(int col)
 {
 	int i=0;
-	while (matrix[col][++i] == 0);
+	while (matrix[col][++i] == 0 && i < Y);
 	return matrix[col][i];
+}
+
+bool board::columnFull(int col)
+{
+	return !(matrix[col][0] != 0);
 }

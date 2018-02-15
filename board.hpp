@@ -4,6 +4,7 @@
 #define SCORE 4
 #define X 7
 #define Y 6
+#define verbose 0
 
 class board{
 private:
@@ -18,6 +19,7 @@ public:
 	int checkBoard();
 	void print();
 	int lastToken(int col);
+	bool columnFull(int col);
 };
 
 
