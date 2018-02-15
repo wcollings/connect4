@@ -13,8 +13,9 @@ board::board()
 void board::setToken(int col, int select)
 {
 	int i=0;
-	for (; i < Y && matrix[col][i]==0; ++i);
-	matrix[col][i]=select;
+	for (; i < Y && matrix[col][i]==0; i++);
+	std::cout <<"point is ("<<col <<',' <<i-1 <<")\n";
+	matrix[col][i-1]=select;
 }
 
 void board::print()
@@ -23,21 +24,21 @@ void board::print()
 	{
 		for (int j=0; j < X; ++j)
 		{
-			std::cout <<matrix[i][j] <<' ';
+			std::cout <<matrix[j][i] <<' ';
 		}
 		std::cout <<'\n';
 	}
 	std::cout <<"\n\n";
 }
 
-bool board::checkVertical()
+int board::checkVertical()
 {
 	int player_score=0, cpu_score=0;
 	for (int i=0; i < X; ++i)
 	{
-		for (int j=0; j < Y; ++i)
+		for (int j=0; j < Y; ++j)
 		{
-			if (matrix[i][j] == 1)
+			if (matrix[j][i] == 1)
 			{
 				player_score++;
 				cpu_score=0;
@@ -47,27 +48,25 @@ bool board::checkVertical()
 				player_score=0;
 				cpu_score++;
 			}
-			if (player_score > 3)
-				return true;
-			if (cpu_score > 3)
-				return true;
+			if (player_score >= SCORE)
+				return 1;
+			if (cpu_score >= SCORE)
+				return 2;
 			cpu_score=player_score=0;
 		}
 
 	}
-	return false;
+	return 0;
 }
-/*
-**TODO: optimize this. it's better, but not great
-*/
-bool board::checkHorizontal()
+
+int board::checkHorizontal()
 {
 	int player_score=0, cpu_score=0;
-	for (int i=0; i < Y; ++i)
+	for (int j=0; j < Y; ++j)
 	{
-		for (int j=0; j < X; ++i)
+		for (int i=0; i < X; ++i)
 		{
-			if (matrix[i][j] == 1)
+			if (matrix[j][i] == 1)
 			{
 				player_score++;
 				cpu_score=0;
@@ -78,20 +77,18 @@ bool board::checkHorizontal()
 				cpu_score++;
 			}
 			if (player_score > 3)
-				return true;
+				return 1;
 			if (cpu_score > 3)
-				return true;
+				return 2;
 		}
 
 	cpu_score=player_score=0;
 	}
-	return false;
+	return 0;
 }
 
-/*
-**there's got to be a better way of doing this
-*/
-bool board::checkLeftDiag()
+
+int board::checkLeftDiag()
 {
 	int player_score=0, cpu_score=0;
 	for (int i=0, j =0; i < X && j < Y; ++i,++j)
@@ -106,8 +103,8 @@ bool board::checkLeftDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return true;
-		if (cpu_score > SCORE) return true;
+		if (player_score > SCORE) return 1;
+		if (cpu_score > SCORE) return 2;
 	}
 	cpu_score=player_score=0;
 	for (int i=0, j=1; i < X && j < Y; ++i,++j)
@@ -123,8 +120,8 @@ bool board::checkLeftDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return true;
-		if (cpu_score > SCORE) return true;
+		if (player_score > SCORE) return 1;
+		if (cpu_score > SCORE) return 2;
 
 	}
 	cpu_score=player_score=0;
@@ -140,16 +137,14 @@ bool board::checkLeftDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return true;
-		if (cpu_score > SCORE) return true;
+		if (player_score > SCORE) return 1;
+		if (cpu_score > SCORE) return 2;
 	}
-	return false;
+	return 0;
 }
 
-/*
-**I mean seriously
-*/
-bool board::checkRightDiag()
+
+int board::checkRightDiag()
 {
 	int player_score=0, cpu_score=0;
 	for (int i=0, j=Y-1; i < X && Y > 0; ++i, --j)
@@ -164,8 +159,8 @@ bool board::checkRightDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return true;
-		if (cpu_score > SCORE) return true;
+		if (player_score > SCORE) return 1;
+		if (cpu_score > SCORE) return 2;
 	}
 	player_score=cpu_score=0;
 	for (int i=1, j=Y-1; i < X && j > 0; ++i,--j)
@@ -180,8 +175,8 @@ bool board::checkRightDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return true;
-		if (cpu_score > SCORE) return true;
+		if (player_score > SCORE) return 1;
+		if (cpu_score > SCORE) return 2;
 	}
 	player_score=cpu_score=0;
 	for (int i=1, j =Y-1; i < X && j > 0; ++i,--j)
@@ -197,18 +192,31 @@ bool board::checkRightDiag()
 			player_score=0;
 			cpu_score++;
 		}
-		if (player_score > SCORE) return true;
-		if (cpu_score > SCORE) return true;
+		if (player_score > SCORE) return 1;
+		if (cpu_score > SCORE) return 2;
 	}
-	return false;
+	return 0;
 }
 /*
 **gets the top token of a given column
 */
 
-bool board::checkBoard()
+int board::checkBoard()
 {
-	return (checkRightDiag() && checkLeftDiag() && checkVertical() && checkHorizontal());
+	int win;
+	win=checkRightDiag();
+	if (win !=0)
+		return win;
+	win=checkLeftDiag();
+	if (win !=0)
+		return win;
+	win=checkHorizontal();
+	if (win !=0)
+		return win;
+	win=checkVertical();
+	if (win !=0)
+		return win;
+	return 0;
 }
 
 
@@ -216,6 +224,6 @@ bool board::checkBoard()
 int board::lastToken(int col)
 {
 	int i=0;
-	while (matrix[col][++i] == 0 );
+	while (matrix[col][++i] == 0);
 	return matrix[col][i];
 }

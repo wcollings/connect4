@@ -13,7 +13,7 @@ int main(void)
 	srand(time(NULL));
 	int r=0, random=0;
 	Board->print();
-	while (!Board->checkBoard())
+	while (Board->checkBoard() == 0)
 	{
 		random=rand()%6;
 		cout <<"give me a row position: ";
@@ -21,9 +21,12 @@ int main(void)
 		machine.logPlayerMove(r);
 		Board->setToken(r, 1);
 		Board->print();
-		Board->checkBoard();
+		if (Board->checkBoard() !=0)
+			break;
 		Board->setToken(machine.place(), 2);
 		Board->print();
-		Board->checkBoard();
+		if (Board->checkBoard() !=0)
+			break;
 	}
+	return 0;
 }

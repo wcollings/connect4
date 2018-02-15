@@ -17,4 +17,5 @@ class ai{
 	void logPlayerMove(int column);
 };
 
+
 #endif

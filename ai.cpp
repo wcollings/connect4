@@ -87,3 +87,4 @@ void ai::logPlayerMove(int column)
 	}
 	lastPlayerMoves[0]=column;
 }
+

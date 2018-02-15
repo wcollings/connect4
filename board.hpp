@@ -1,5 +1,5 @@
-#ifndef __ROW_H__
-#define __ROW_H__
+#ifndef __BOARD_H__
+#define __BOARD_H__
 
 #define SCORE 4
 #define X 7
@@ -11,11 +11,11 @@ private:
 public:
 	board();
 	void setToken(int col, int select);
-	bool checkVertical();
-	bool checkHorizontal();
-	bool checkLeftDiag();
-	bool checkRightDiag();
-	bool checkBoard();
+	int checkVertical();
+	int checkHorizontal();
+	int checkLeftDiag();
+	int checkRightDiag();
+	int checkBoard();
 	void print();
 	int lastToken(int col);
 };
