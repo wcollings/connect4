@@ -90,7 +90,6 @@ int board::checkHorizontal()
 	return 0;
 }
 
-
 int board::checkLeftDiag()
 {
 	int player_score=0, cpu_score=0;
@@ -146,7 +145,6 @@ int board::checkLeftDiag()
 	return 0;
 }
 
-
 int board::checkRightDiag()
 {
 	int player_score=0, cpu_score=0;
@@ -200,10 +198,6 @@ int board::checkRightDiag()
 	}
 	return 0;
 }
-/*
-**gets the top token of a given column
-*/
-
 int board::checkBoard()
 {
 	int win;

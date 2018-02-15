@@ -4,7 +4,6 @@
 #include "ai.hpp"
 using namespace std;
 
-
 int main(void)
 {
 	board * Board= new board();
