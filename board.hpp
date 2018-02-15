@@ -17,7 +17,7 @@ public:
 	int checkLeftDiag();
 	int checkRightDiag();
 	int checkBoard();
-	void print();
+	void update();
 	int lastToken(int col);
 	bool columnFull(int col);
 };

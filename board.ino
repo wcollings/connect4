@@ -1,5 +1,4 @@
 #include "board.hpp"
-#include <iostream>
 
 board::board()
 {
@@ -14,25 +13,12 @@ void board::setToken(int col, int select)
 {
 	int i=0;
 	for (; i < Y && matrix[col][i]==0; i++);
-	//std::cout <<"point is ("<<col <<',' <<i-1 <<")\n";
 	matrix[col][i-1]=select;
 }
 
-void board::print()
+void board::update()
 {
-	for (int i=0; i < Y; ++i)
-	{
-		for (int j=0; j < X; ++j)
-		{
-			#if verbose==1
-			std::cout <<'(' <<j <<',' <<i <<',' <<matrix[j][i] <<')' <<' ';
-			#else
-			std::cout <<matrix[j][i] <<' ';
-			#endif
-		}
-		std::cout <<'\n';
-	}
-	std::cout <<"\n\n";
+	
 }
 
 int board::checkVertical()

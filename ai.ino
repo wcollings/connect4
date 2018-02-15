@@ -1,9 +1,7 @@
 #include "ai.hpp"
-#include <iostream>
-#include <cmath>
 ai::ai()
 {
-	srand(10);
+	randomSeed(10);
 	for (int i=0; i < 4; ++i)
 	{
 		lastPlayerMoves[i]=-1;
@@ -16,7 +14,7 @@ ai::ai()
 ai::ai(board* Board)
 {
 	this->Board=Board;
-	srand(10);
+	randomSeed(10);
 	for (int i=0; i < 4; ++i)
 	{
 		lastPlayerMoves[i]=-1;
@@ -33,7 +31,7 @@ ai::ai(board* Board)
 int ai::place()
 {
 	int choice;
-	int random_move=rand()%6;
+	int random_move=random(6);
 	int guess=-1, lastWeight=0;
 	if (turns==0)
 		guess=random_move;
@@ -43,7 +41,7 @@ int ai::place()
 		if (lastWeight < 3)
 		{
 			guess=lastPlayerMoves[0];
-			lastWeight=rand()%5;
+			lastWeight=random(6);
 			choice=0;
 		}
 	}
@@ -53,7 +51,7 @@ int ai::place()
 	 if (lastWeight < 3)
 		{
 			guess=lastPlayerMoves[0]-1;
-			lastWeight=rand()%5;
+			lastWeight=random(5);
 			choice=1;
 		}   
 	}
@@ -63,19 +61,19 @@ int ai::place()
 	 if (lastWeight < 3)
 		{
 			guess=lastPlayerMoves[0]-1;
-			lastWeight=rand()%5;
+			lastWeight=random(5);
 			choice=2;
 		}   
 	}
 	//play a random move. just to add chaos
-	if (rand()%4 > lastWeight)
+	if (random()%4 > lastWeight)
 	{
 		guess=attack();
 		choice=3;
 	}
 	if (guess == -1)
 	{
-		guess=rand()%6;
+		guess=random(6);
 		choice=4;
 	}
 	if (guess <0 || guess > 6)
@@ -88,7 +86,6 @@ int ai::place()
 	}
 	lastAiMoves[0]=guess;
 	#if verbose==1
-	std::cout <<"Went with choice " <<choice <<'\n';
 	#endif
 	return guess;
 }
