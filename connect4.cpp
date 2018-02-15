@@ -25,6 +25,5 @@ int main(void)
 		Board->setToken(machine.place(), 2);
 		Board->print();
 		Board->checkBoard();
-	
 	}
 }

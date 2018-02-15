@@ -15,8 +15,6 @@ class ai{
 	ai();
 	ai(board*);
 	void logPlayerMove(int column);
-	
-
 };
 
 #endif

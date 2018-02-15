@@ -86,5 +86,4 @@ void ai::logPlayerMove(int column)
 		lastPlayerMoves[i]=lastPlayerMoves[i-1];
 	}
 	lastPlayerMoves[0]=column;
-	Board->print();
 }

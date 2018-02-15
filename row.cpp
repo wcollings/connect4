@@ -10,16 +10,24 @@ board::board()
 	}
 }
 
+void board::setToken(int col, int select)
+{
+	int i=0;
+	for (; i < Y && matrix[col][i]==0; ++i);
+	matrix[col][i]=select;
+}
+
 void board::print()
 {
-	for (int i=0; i < X; ++i)
+	for (int i=0; i < Y; ++i)
 	{
-		for (int j=0; j < Y; ++j)
+		for (int j=0; j < X; ++j)
 		{
 			std::cout <<matrix[i][j] <<' ';
 		}
 		std::cout <<'\n';
 	}
+	std::cout <<"\n\n";
 }
 
 bool board::checkVertical()
@@ -197,6 +205,14 @@ bool board::checkRightDiag()
 /*
 **gets the top token of a given column
 */
+
+bool board::checkBoard()
+{
+	return (checkRightDiag() && checkLeftDiag() && checkVertical() && checkHorizontal());
+}
+
+
+
 int board::lastToken(int col)
 {
 	int i=0;
