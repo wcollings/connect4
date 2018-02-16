@@ -25,7 +25,8 @@ void loop()
 		if (digitalRead(buttonPins[i]) == HIGH)
 			{
 				digitalWrite(13, LOW);
-	   			proceed(i);
+	   			Board->setToken(i, 1);
+				//proceed(i);
 				if (Board->checkBoard()!=0)
 					return;
 			}
