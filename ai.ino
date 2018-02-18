@@ -31,59 +31,25 @@ ai::ai(board* Board)
 int ai::place()
 {
 	int choice;
-	int random_move=random(6);
+	int random_move=random(30);
 	int guess=-1, lastWeight=0;
-	if (turns==0)
-		guess=random_move;
-		//person keeps picking the same column
-	else if (lastPlayerMoves[0] ==lastPlayerMoves[1])
-	{
-		if (lastWeight < 3)
-		{
-			guess=lastPlayerMoves[0];
-			lastWeight=random(6);
-			choice=0;
-		}
-	}
-	//doing a sideways or diagonal pattern
-	else if (lastPlayerMoves[0]==lastPlayerMoves[1]+1)
-	{
-	 if (lastWeight < 3)
-		{
-			guess=lastPlayerMoves[0]-1;
-			lastWeight=random(5);
-			choice=1;
-		}   
-	}
-	//doing the other sideways/diagonal
-	else if (lastPlayerMoves[0]==lastPlayerMoves[1]-1)
-	{
-	 if (lastWeight < 3)
-		{
-			guess=lastPlayerMoves[0]-1;
-			lastWeight=random(5);
-			choice=2;
-		}   
-	}
-	//play a random move. just to add chaos
-	if (random()%4 > lastWeight)
-	{
+	if (turns<2)
+		guess= attack();
+	if (random_move >20  || turns%2==0)
+		guess=defend();
+	else if (random_move > 10)
 		guess=attack();
-		choice=3;
-	}
-	if (guess == -1)
+	else 	//play a random move. just to add chaos
 	{
-		guess=random(6);
-		choice=4;
+		guess=random_move%7;
 	}
-	if (guess <0 || guess > 6)
-		guess=3;
-
 	//push its choice onto its stack of last moves
 	for (int i=3; i > 0; --i)
 	{
 		lastAiMoves[i]=lastAiMoves[i+1];
 	}
+	if (guess==-1) return 3;
+
 	lastAiMoves[0]=guess;
 	#if verbose==1
 	#endif
@@ -104,10 +70,54 @@ void ai::logPlayerMove(int column)
 
 int ai::attack()
 {
-	if (Board->lastToken(lastAttackPosition) != 2 ||  Board->columnFull(lastAttackPosition))
+	if (play_up)
+	{
+		if (Board->lastToken(lastAttackPosition) != 2 ||  Board->columnFull(lastAttackPosition))
+		{
+			play_up=false;
+		}
+	}
+	if (!play_up)
+	{
 		lastAttackPosition++;
-	if (lastAttackPosition >= 6)
-		lastAttackPosition=0;
+		if (lastAttackPosition >= 6)
+		{
+			play_up=true;
+				lastAttackPosition++;
+			while(Board->columnFull(lastAttackPosition))
+			{
+				lastAttackPosition++;
+				if (lastAttackPosition > 6) lastAttackPosition=0;
+			}
+		}
+	}
 	return lastAttackPosition;
 }
 
+int ai::defend()
+{
+if (lastPlayerMoves[0] ==lastPlayerMoves[1])
+	{
+			return lastPlayerMoves[0];
+	}
+	//doing a sideways or diagonal pattern
+	else if (lastPlayerMoves[0]==lastPlayerMoves[1]+1)
+	{
+			return lastPlayerMoves[0]+1;
+	}
+	//doing the other sideways/diagonal
+	else if (lastPlayerMoves[0]==lastPlayerMoves[1]-1)
+	{
+			return lastPlayerMoves[0]-1;
+	}
+
+}
+void ai::reset()
+{
+	turns=0;
+	lastPlayerMoves[0]=0;
+	lastPlayerMoves[1]=0;
+	lastPlayerMoves[2]=0;
+	lastPlayerMoves[3]=0;
+	lastAttackPosition=random(7);
+}

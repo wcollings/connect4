@@ -11,12 +11,15 @@ class ai{
 	int lastPlayerMoves[4];
 	int lastAiMoves[4];
 	int lastAttackPosition;
+	bool play_up;
 	public:
 	int place();
 	ai();
 	ai(board*);
 	void logPlayerMove(int column);
 	int attack();
+	int defend();
+	void reset();
 };
 
 

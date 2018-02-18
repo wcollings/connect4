@@ -8,14 +8,10 @@
 #define Y 6
 #define verbose 0
 
-const rgb_color PLAYER=rgb_color(00,00,50);
-const rgb_color CPU=rgb_color(50,00,00);
-const rgb_color EMPTY=rgb_color(00,00,00);
 
-#define LED_COUNT 30
-class board{
-private:
-	int matrix[X][Y];
+const rgb_color PLAYER=rgb_color(100,00,00);
+const rgb_color CPU=rgb_color(00,00,100);
+const rgb_color EMPTY=rgb_color(00,00,00);
 	PololuLedStrip<7> y0;
 	PololuLedStrip<8> y1;
 	PololuLedStrip<9> y2;
@@ -23,6 +19,11 @@ private:
 	PololuLedStrip<11> y4;
 	PololuLedStrip<12> y5;
 	PololuLedStrip<13> y6;
+
+#define LED_COUNT 6
+class board{
+private:
+	int matrix[X][Y];
 	rgb_color colors[LED_COUNT];
 public:
 	board();
@@ -35,6 +36,7 @@ public:
 	void update(int);
 	int lastToken(int col);
 	bool columnFull(int col);
+	void flash_win(int, int, short, bool);
 };
 
 
