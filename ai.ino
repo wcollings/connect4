@@ -84,10 +84,13 @@ int ai::attack()
 		{
 			play_up=true;
 				lastAttackPosition++;
+				int cycles=0;
 			while(Board->columnFull(lastAttackPosition))
 			{
+				cycles++;
 				lastAttackPosition++;
 				if (lastAttackPosition > 6) lastAttackPosition=0;
+				if (cycles >= 7) return 3;
 			}
 		}
 	}

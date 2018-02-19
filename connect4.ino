@@ -35,7 +35,11 @@ void loop()
 				//Serial.println(" pressed");
 	   			Board->setToken(i, 1);
 				if (Board->checkBoard()!= 0)
+				{
 					victory();
+					continue;
+				}
+				delay(1000);
 				machine->logPlayerMove(i);
 				Board->setToken(machine->place(), 2);
 				delay(1000);
