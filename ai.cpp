@@ -107,7 +107,7 @@ void ai::logPlayerMove(int column)
 
 int ai::attack()
 {
-	if (Board->lastToken(lastAttackPosition) != 2 ||  Board->columnFull(lastAttackPosition))
+	if (Board->topToken(lastAttackPosition) != 2 ||  Board->columnFull(lastAttackPosition))
 		lastAttackPosition++;
 	if (lastAttackPosition >= 6)
 		lastAttackPosition=0;

@@ -8,20 +8,20 @@
 
 class board{
 private:
-	int matrix[X][Y];
+	int matrix[X][Y+1];
+	int lastMove;
 public:
 	board();
-	void setToken(int col, int select);
+	void setToken(int col, int select=2);
 	int checkVertical();
 	int checkHorizontal();
 	int checkLeftDiag();
 	int checkRightDiag();
 	int checkBoard();
 	void print();
-	int lastToken(int col);
+	int topToken(int col);
 	bool columnFull(int col);
+	int ReadLastMove();
 };
-
-
 
 #endif

@@ -3,6 +3,7 @@
 
 board::board()
 {
+	lastMove=0;
 	for (int i=0; i < X; ++i)
 	{
 		for (int j=0; j < Y; ++j)
@@ -14,8 +15,9 @@ void board::setToken(int col, int select)
 {
 	int i=0;
 	for (; i < Y && matrix[col][i]==0; i++);
-	//std::cout <<"point is ("<<col <<',' <<i-1 <<")\n";
+	matrix[col][7]=i;
 	matrix[col][i-1]=select;
+	lastMove=col;
 }
 
 void board::print()
@@ -200,6 +202,8 @@ int board::checkRightDiag()
 }
 int board::checkBoard()
 {
+	if (matrix[lastMove][matrix[lastMove][7]]-1);
+	/*
 	int win;
 	win=checkRightDiag();
 	if (win !=0)
@@ -214,9 +218,10 @@ int board::checkBoard()
 	if (win !=0)
 		return win;
 	return 0;
+	*/
 }
 
-int board::lastToken(int col)
+int board::topToken(int col)
 {
 	int i=0;
 	while (matrix[col][++i] == 0 && i < Y);
@@ -226,4 +231,9 @@ int board::lastToken(int col)
 bool board::columnFull(int col)
 {
 	return !(matrix[col][0] != 0);
+}
+
+int board::ReadLastMove()
+{
+	return lastMove;
 }
